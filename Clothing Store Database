@@ -1,0 +1,30 @@
+-- create a clothing store database --
+
+CREATE TABLE clothing (id INTEGER PRIMARY KEY, name TEXT, unit_price INTEGER, items_in_stock INTEGER, collection TEXT);
+INSERT INTO clothing VALUES
+(1,"shirts",10,1270,"Spring"),
+(2,"shorts",14,2300,"Summer"),
+(3,"jackets",22,570,"Fall"),
+(4,"scarfs",9,320,"Winter"),
+(5,"socks",7,950,"Summer"),
+(6,"dresses",18,774,"Spring"),
+(7,"shoes",25,550,"Summer"),
+(8,"gloves",7,179,"Winter"),
+(9,"pants",10,447,"Fall"),
+(10,"skirts",6,99,"Summer"),
+(11,"boots",30,1200,"Winter"),
+(12,"belts",11,999,"Fall"),
+(13,"sweatshirts",23,980,"Fall"),
+(14,"hats",7,600,"Spring"),
+(15,"sweatpants",16,432,"Winter");
+
+-- display the product id, name, and price ordered by price from most expensive to cheapest product --
+
+SELECT id, name, unit_price FROM clothing ORDER BY unit_price DESC;
+
+-- diplay the total number of items in stock --
+SELECT SUM(items_in_stock) as "total items in stock" FROM clothing;
+
+-- display the average unit price for each collection --
+
+SELECT collection, AVG(unit_price) as "average unit price" FROM clothing GROUP BY collection;
