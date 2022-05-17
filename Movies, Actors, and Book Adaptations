@@ -1,0 +1,91 @@
+CREATE TABLE movies (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, genre TEXT);
+INSERT INTO movies (title, genre) VALUES
+("Dune", "Sci-fi"),
+("Harry Potter", "Fantasy"),
+("The Batman", "Superhero"),
+("Doctor Strange 2", "Superhero"),
+("The Northman", "Drama"),
+("The Hunger Games", "Sci-fi"),
+("Percy Jackson", "Fantasy"),
+("Mission Impossible", "Action"),
+("The Help", "Drama"),
+("Maze Runner", "Sci-fi"),
+("Run","Horror"),
+("Midsommar","Horror"),
+("Us","Horror"),
+("No Time to Die","Action"),
+("Everything Everywhere","Drama"),
+("Avatar","Sci-fi"),
+("The Woman in the Window","Drama"),
+("Uncharted","Action"),
+("Paper Towns","Drama");
+
+CREATE TABLE actors (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, age INTEGER, movie_id INTEGER);
+INSERT INTO actors (name, age, movie_id) VALUES
+("Zoe Saldana", 43, 16),
+("Daniel Radcliffe", 38, 2),
+("Stephanie Hsu", 31, 15),
+("Jennifer Lawrence", 42, 6),
+("Tom Cruise", 55, 8),
+("Elizabeth Olsen", 33, 4),
+("Nicole Kidman",53, 5),
+("Zendaya",24, 1),
+("Lupita Nyong'o", 39, 13),
+("Sarah Paulson", 39, 11),
+("Zoe Kravitz", 32, 3),
+("Logan Lerman", 34, 7),
+("Nat Wolff", 27, 19),
+("Viola Davis", 57, 9),
+("Dylan O'brien", 29, 10),
+("Florence Pugh", 25, 12),
+("Michelle Yeoh", 59, 15),
+("Amy Adams", 47, 17),
+("Timothee Chalamet", 23, 1),
+("Tom Holland", 24, 18),
+("Cara Delavigne", 29, 19),
+("Danie Craig", 52, 14),
+("Robert Pattinson", 35, 3);
+
+CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, movie_adaptation TEXT, movie_id INTEGER);
+INSERT INTO books (title, movie_adaptation, movie_id) VALUES
+("Harry Potter", "Yes", 2),
+("Song of Achilles", "No", NULL),
+("Game of Thrones", "No", NULL),
+("The Hunger Games","Yes", 6),
+("Dune","Yes", 1),
+("Little Fires Everywhere", "No", NULL),
+("Percy Jackson","Yes", 7),
+("The Help", "Yes", 9),
+("Looking for Alaska", "No", NULL),
+("Maze Runner", "Yes", 10),
+("The Woman in the Window", "Yes" , 17),
+("They Both Die at the End", "No", NULL),
+("Paper Towns", "Yes", 19);
+
+/* display actor names, the names of the movies they are in, and whether the movie is based on a book, order results by movie title */
+SELECT a.name, m.title, CASE 
+    WHEN b.movie_adaptation="Yes" THEN "Yes"
+    ELSE "No"
+    END AS "based on a book"
+    FROM movies AS m
+JOIN actors AS a 
+ON m.id=a.movie_id
+LEFT JOIN books AS b
+ON m.id=b.movie_id
+ORDER BY m.title;
+
+/* display only the actors that starred in movies adapted from books and the genres of those movies */
+SELECT a.name, m.genre
+FROM movies AS m
+JOIN actors AS a
+ON m.id=a.movie_id
+JOIN books AS b
+ON m.id=b.movie_id
+ORDER BY m.genre, a.name;
+
+/* display the average age of actors starring in each genre */
+SELECT m.genre, AVG(a.age) AS average_age 
+FROM movies AS m
+JOIN actors AS a
+ON m.id = a.movie_id
+GROUP BY m.genre;
