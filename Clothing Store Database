@@ -22,7 +22,7 @@ INSERT INTO clothing VALUES
 SELECT id, name, unit_price FROM clothing ORDER BY unit_price DESC;
 
 -- diplay the total number of items in stock
-SELECT SUM(items_in_stock) as "total items in stock" FROM clothing;
+SELECT SUM(items_in_stock) AS total items in stock FROM clothing;
 
 -- display the average unit price for each collection
-SELECT collection, AVG(unit_price) as "average unit price" FROM clothing GROUP BY collection;
+SELECT collection, AVG(unit_price) AS average unit price FROM clothing GROUP BY collection;
